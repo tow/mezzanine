@@ -65,8 +65,8 @@ class Page(Orderable, Displayable):
             slug = self.slug
         except AttributeError:
             slug = slugify(self.title)
-        if self.parent is not None:
-            return "%s/%s" % (self.parent.get_slug(), slug)
+            if self.parent is not None:
+                return "%s/%s" % (self.parent.get_slug(), slug)
         return slug
 
     def overridden(self):
