@@ -64,6 +64,8 @@ class Page(Orderable, Displayable):
         try:
             slug = self.slug
         except AttributeError:
+            slug = ""
+        if not slug:
             slug = slugify(self.title)
             if self.parent is not None:
                 return "%s/%s" % (self.parent.get_slug(), slug)
