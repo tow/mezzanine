@@ -239,3 +239,6 @@ class Keyword(Slugged):
         verbose_name = "Keyword"
         verbose_name_plural = "Keywords"
 
+
+from south.modelsinspector import add_introspection_rules
+add_introspection_rules([], ["^mezzanine\.core\.fields\.HtmlField"])
