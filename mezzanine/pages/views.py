@@ -1,5 +1,4 @@
 
-from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.http import HttpResponse
@@ -8,9 +7,9 @@ from django.template import RequestContext
 from django.template.loader import select_template
 from django.utils.http import urlquote
 
-from mezzanine.core.decorators import use_mobile_template
-from mezzanine.pages.models import Page
+from mezzanine.conf import settings
 from mezzanine.pages import page_processors
+from mezzanine.pages.models import Page
 
 
 page_processors.autodiscover()
@@ -29,7 +28,6 @@ def admin_page_ordering(request):
 admin_page_ordering = staff_member_required(admin_page_ordering)
 
 
-@use_mobile_template
 def page(request, slug, template="pages/page.html"):
     """
     Display content for a page. First check for any matching page processors

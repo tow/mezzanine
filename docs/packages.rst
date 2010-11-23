@@ -84,7 +84,7 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
    :members:
 
 ``mezzanine.forms``
-=====================
+===================
 
 .. automodule:: mezzanine.forms
 
@@ -95,6 +95,21 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
    :members:
 
 .. automodule:: mezzanine.forms.page_processors
+   :members:
+
+``mezzanine.conf``
+======================
+
+.. automodule:: mezzanine.conf
+   :members:
+
+.. automodule:: mezzanine.conf.models
+   :members:
+
+.. automodule:: mezzanine.conf.forms
+   :members:
+
+.. automodule:: mezzanine.conf.admin
    :members:
 
 ``mezzanine.twitter``

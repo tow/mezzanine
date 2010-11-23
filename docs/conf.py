@@ -1,7 +1,7 @@
 from __future__ import with_statement
 # -*- coding: utf-8 -*-
 #
-# Cartridge documentation build configuration file, created by
+# Mezzanine documentation build configuration file, created by
 # sphinx-quickstart on Wed Mar 10 07:20:42 2010.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -20,29 +20,26 @@ sys.path.insert(0, mezzanine_path)
 os.environ["DJANGO_SETTINGS_MODULE"] = "mezzanine.project_template.settings"
 import mezzanine
 
-# Generate the documentation for mezzanine.settings
-import mezzanine.settings
-settings_comment = []
+# Generate the documentation for mezzanine.conf
+from mezzanine.conf import registry
+
 settings_docs = [".. THIS DOCUMENT IS AUTO GENERATED VIA conf.py"]
-with open(mezzanine.settings.__file__.rstrip("c"), "r") as f:
-    for line in f:
-        if line.startswith("#"):
-            settings_comment.append(line.lstrip("#").strip())
-        elif line.startswith("setting("):
-            settings_name = line.split('setting("', 1)[1].split('"', 1)[0]
-            settings_default = getattr(mezzanine.settings, settings_name)
-            if isinstance(settings_default, basestring):
-                settings_default = '"%s"' % settings_default
-            settings_default = "``%s``" % str(settings_default)
-            settings_name = "``MEZZANINE_%s``" % settings_name
-            settings_docs.extend(["", settings_name, "-" * len(settings_name)])
-            settings_docs.extend(["", "Default: %s" % settings_default, ""])
-            settings_docs.extend(settings_comment)
-            settings_comment = []
-        elif not line.strip():
-            settings_comment = []
+for name in sorted(registry.keys()):
+    setting = registry[name]
+    settings_name = "``%s``" % name
+    setting_default = setting["default"]
+    if isinstance(setting_default, basestring) and \
+        setting_default.startswith("/") and \
+        os.path.exists(setting_default):
+        setting_default = "[dynamic]"
+    else:
+        setting_default = repr(setting_default)
+    settings_docs.extend(["", settings_name, "-" * len(settings_name)])
+    settings_docs.extend(["", setting["description"]])
+    settings_docs.extend(["", "Default: ``%s``" % setting_default])
 with open(os.path.join(docs_path, "settings.rst"), "w") as f:
     f.write("\n".join(settings_docs))
+    
 
 # Generate the CHANGELOG file.
 repo = None
@@ -95,8 +92,8 @@ if repo is not None:
         except KeyError:
             continue
         else:
-            description = context.description().rstrip(".")
-            user = context.user().split()[0]
+            description = context.description().rstrip(".").replace("\n", "")
+            user = context.user().split("<")[0].strip()
             entry = "%s - %s" % (description, user)
             if entry not in versions[version]["changes"]:
                 versions[version]["changes"].insert(0, entry)

@@ -30,6 +30,7 @@ provides the following features.
   * API for `custom content types`_
   * SEO friendly URLs and meta data
   * `Search engine and API`_
+  * Configurable `dashboard`_ widgets
   * Mobile device detection and templates
   * Shopping cart module (`Cartridge`_)
   * Blogging engine
@@ -48,14 +49,19 @@ provides the following features.
 
 The Mezzanine admin dashboard:
 
-.. image:: http://media.tumblr.com/tumblr_l3su7jFBHM1qa0qji.png
+.. image:: http://github.com/stephenmcd/mezzanine/raw/master/docs/img/dashboard.png
 
 Dependencies
 ============
 
-Apart from `Django`_ itself, Mezzanine has no explicit dependencies but is 
-designed to be used most effectively in conjunction with the following 
-libraries.
+Mezzanine has no explicit dependencies apart from a standard Django 
+environment using.
+
+  * `Python`_ 2.5 ... 2.7
+  * `Django`_ 1.1 ... 1.3
+  
+Mezzanine is designed however to be used most effectively in conjunction 
+with the following libraries.
 
   * `setuptools`_
   * `Python Imaging Library`_ (PIL)
@@ -84,8 +90,13 @@ can be used for creating a new Mezzanine project in a similar fashion to
 You can then run your project with the usual Django steps::
 
     $ cd project_name
-    $ python manage.py syncdb
+    $ python manage.py syncdb --noinput
     $ python manage.py runserver
+    
+You should then be able to browse to http://127.0.0.1:8000/admin/ and log 
+in using the default account (``username: admin, password: default``). If 
+you'd like to specify a different username and password during set up, simply 
+exclude the ``--noinput`` option included above when running ``syncdb``.
 
 Contributing
 ============
@@ -109,6 +120,9 @@ Sites Using Mezzanine
   * `Citrus Agency`_
   * `Mezzanine Project`_ (self hosted)
   * `Nick Hagianis`_
+  * `Thomas Johnson`_
+  * `Central Mosque Wembley`_
+  * `Ovarian Cancer Research Foundation`_
 
 Quotes
 ======
@@ -124,6 +138,7 @@ Quotes
 .. _`Wordpress`: http://wordpress.org/
 .. _`Pinax`: http://pinaxproject.com/
 .. _`Mingus`: http://github.com/montylounge/django-mingus
+.. _`Python`: http://python.org/
 .. _`setuptools`: http://pypi.python.org/pypi/setuptools
 .. _`Python Imaging Library`: http://www.pythonware.com/products/pil/
 .. _`django-grappelli`: http://code.google.com/p/django-grappelli/
@@ -131,6 +146,7 @@ Quotes
 .. _`In-line page editing`: http://mezzanine.jupo.org/docs/inline-editing.html
 .. _`custom content types`: http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
+.. _`dashboard`: http://mezzanine.jupo.org/docs/admin-customization.html#dashboard
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`test suite`: http://mezzanine.jupo.org/docs/packages.html#module-mezzanine.tests
@@ -146,8 +162,11 @@ Quotes
 .. _`Github issue tracker`: http://github.com/stephenmcd/mezzanine/issues
 .. _`Citrus Agency`: http://citrus.com.au/
 .. _`Mezzanine Project`: http://mezzanine.jupo.org/
-.. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Nick Hagianis`: http://hagianis.com/
+.. _`Thomas Johnson`: http://tomfmason.net/
+.. _`Central Mosque Wembley`: http://wembley-mosque.co.uk/
+.. _`Ovarian Cancer Research Foundation`: http://ocrf.com.au/
+.. _`Van Lindberg`: http://www.lindbergd.info/
 .. _`Jesse Noller`: http://jessenoller.com/
 .. _`Stephen White`: http://bitbucket.org/swhite/
 .. _`Brad Montgomery`: http://bradmontgomery.net/

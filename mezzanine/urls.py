@@ -1,8 +1,7 @@
 
-from django.conf import settings
 from django.conf.urls.defaults import *
 
-from mezzanine.settings import BLOG_SLUG
+from mezzanine.conf import settings
 
 
 urlpatterns = patterns("",
@@ -11,7 +10,7 @@ urlpatterns = patterns("",
 
 if "mezzanine.blog" in settings.INSTALLED_APPS:
     urlpatterns += patterns("",
-        ("^%s/" % BLOG_SLUG, include("mezzanine.blog.urls")),
+        ("^%s/" % settings.BLOG_SLUG, include("mezzanine.blog.urls")),
     )
 if "mezzanine.pages" in settings.INSTALLED_APPS:
     urlpatterns += patterns("",

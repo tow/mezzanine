@@ -1,13 +1,18 @@
 
 
-from django.conf import settings
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect
 
+from mezzanine.conf import settings
 from mezzanine.forms.forms import FormForForm
 from mezzanine.forms.models import Form
 from mezzanine.pages.page_processors import processor_for
 
+
+def format_value(value):
+    if isinstance(value, list):
+        value = ", ".join([v.strip() for v in value])
+    return value
 
 @processor_for(Form)
 def form_processor(request, page):
@@ -17,7 +22,7 @@ def form_processor(request, page):
     form = FormForForm(page.form, request.POST or None, request.FILES or None)
     if form.is_valid():
         entry = form.save()
-        fields = ["%s: %s" % (v.label, form.cleaned_data[k])
+        fields = ["%s: %s" % (v.label, format_value(form.cleaned_data[k]))
             for (k, v) in form.fields.items()]
         subject = page.form.email_subject
         if not subject:
