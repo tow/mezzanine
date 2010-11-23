@@ -10,7 +10,7 @@ def register_setting(name="", editable=False, description="", default=None):
     Registers a setting that can be edited via the admin.
     """
     # Check project's settings module for overriden default.
-    default = getattr(settings, name, default)
+    default = getattr(settings, "MEZZANINE_%s"%name, default)
     registry[name] = {"name": name, "description": description, "editable":
         editable, "default": default, "type": type(default)}
 
