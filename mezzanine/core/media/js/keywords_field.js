@@ -54,24 +54,27 @@ $(function() {
     // URL that will create the keywords if required, and return their IDs. 
     // Then add the IDs as selected items to the previously hidden 
     // select-multiple, and allow form to submit.
-    var keywordsSaved = false;
     var form = $('#id_keywords').attr('form');
-    $(form).find('input[type=submit]').click(function() {
-        var button = this;
-        if (!keywordsSaved) {
-            var keywords = {text_keywords: form.text_keywords.value};
-            $.post(window.__admin_keywords_submit_url, keywords, function(ids) {
+    $('input[type="submit"]', form).click(function(e) {
+        var keywords = {text_keywords: form.text_keywords.value};
+        $.ajax({
+            type: 'POST',
+            url: window.__admin_keywords_submit_url,
+            async: false,
+            data: keywords,
+            success: function(ids) {
                 $('#id_keywords').html('');
                 if (ids.length > 0) {
                     $('#id_keywords').html($.map(ids.split(','), function(id) {
                         return '<option selected value="' + id + '"></option>';
                     }).join(''));
                 }
-                keywordsSaved = true;
-                button.click();
-            });
-        }
-        return keywordsSaved;
+            },
+            failure: function() {
+                alert("Error saving keywords!");
+                e.preventDefault();
+            }
+        });
     });
 
 });
