@@ -19,7 +19,7 @@ from django import VERSION
 if not (VERSION[0] <= 1 and VERSION[1] <= 1):
     displayable_js.append("js/collapse_backport.js")
 displayable_js = content_media_urls(*displayable_js)
-displayable_js.insert(0, "%s/jscripts/tiny_mce/tiny_mce.js" % 
+displayable_js.insert(0, "%s/jscripts/tiny_mce/tiny_mce_dev.js" % 
                                                     settings.TINYMCE_URL)
 
 
